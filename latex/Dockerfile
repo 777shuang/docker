@@ -1,6 +1,6 @@
-FROM debian:stable-slim
-RUN apt update && \
-    apt install -y perl wget && \
+FROM alpine
+
+RUN apk --no-cache add perl wget && \
     wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xvf install-tl-unx.tar.gz && \
     cd install-tl-2* && \
@@ -11,6 +11,4 @@ RUN apt update && \
     /usr/local/texlive/2???/bin/*/tlmgr path add && \
     cd .. && \
     rm -rf install-tl-2* && \
-    apt remove -y wget && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+    apt del -y wget
