@@ -1,4 +1,4 @@
-FROM pandoc/minimal:alpine
+FROM pandoc/minimal:latest-alpine
 
 RUN apk --no-cache add inkscape
 
