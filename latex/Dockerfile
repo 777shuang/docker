@@ -13,4 +13,4 @@ RUN apk --no-cache add perl curl && \
     /usr/local/texlive/2???/bin/*/tlmgr path add && \
     cd .. && \
     rm -rf install-tl-2* && \
-    apk del -y curl
+    apk del curl
