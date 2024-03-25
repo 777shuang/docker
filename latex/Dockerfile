@@ -1,5 +1,4 @@
-FROM debian
-ENV DEBIAN_FRONTEND=noninteractive
+FROM debian:stable-slim
 RUN apt update && \
     apt install -y perl wget && \
     wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
