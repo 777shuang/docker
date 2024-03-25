@@ -2,7 +2,7 @@ FROM pandoc/minimal:latest-ubuntu
 
 RUN apt update && \
     apt upgrade -y && \
-    apt install -y --no-install-recommends software-properties-common && \
+    apt install -y software-properties-common && \
     add-apt-repository ppa:inkscape.dev/stable && \
     apt update && \
     apt install -y --no-install-recommends inkscape default-jre-headless graphviz && \
