@@ -1,9 +1,19 @@
-FROM pandoc/minimal:latest-alpine
+FROM pandoc/minimal:latest-ubuntu
 
-RUN apk --no-cache add inkscape
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y --no-install-recommends software-properties-common && \
+    add-apt-repository ppa:inkscape.dev/stable && \
+    apt update && \
+    apt install -y --no-install-recommends inkscape default-jre-headless graphviz && \
+    apt remove -y software-properties-common && \
+    apt autoremove -y && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apk --no-cache add perl curl && \
-    curl -OL http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+RUN apt update &&\
+    apt install -y --no-install-recommends perl wget && \
+    wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xvf install-tl-unx.tar.gz && \
     cd install-tl-2* && \
     echo "selected_scheme scheme-full" > ./texlive.profile && \
@@ -13,6 +23,7 @@ RUN apk --no-cache add perl curl && \
     /usr/local/texlive/2???/bin/*/tlmgr path add && \
     cd .. && \
     rm -rf install-tl-2* && \
-    apk del -y curl
-
-RUN apk --no-chache openjdk17-jre-headless graphviz
+    apt remove -y wget && \
+    apt autoremove -y && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
