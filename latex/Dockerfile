@@ -2,8 +2,8 @@ FROM alpine
 
 RUN apk --no-cache add inkscape
 
-RUN apk --no-cache add perl wget && \
-    wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+RUN apk --no-cache add perl curl && \
+    curl -OL http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xvf install-tl-unx.tar.gz && \
     cd install-tl-2* && \
     echo "selected_scheme scheme-full" > ./texlive.profile && \
@@ -13,4 +13,4 @@ RUN apk --no-cache add perl wget && \
     /usr/local/texlive/2???/bin/*/tlmgr path add && \
     cd .. && \
     rm -rf install-tl-2* && \
-    apt del -y wget
+    apt del -y curl
