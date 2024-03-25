@@ -1,5 +1,7 @@
 FROM alpine
 
+RUN apk --no-cache add inkscape
+
 RUN apk --no-cache add perl wget && \
     wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xvf install-tl-unx.tar.gz && \
