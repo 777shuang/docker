@@ -13,7 +13,7 @@ RUN apt update && \
 
 RUN apt update &&\
     apt install -y --no-install-recommends perl wget && \
-    wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+    wget --no-check-certificate http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xvf install-tl-unx.tar.gz && \
     cd install-tl-2* && \
     echo "selected_scheme scheme-full" > ./texlive.profile && \
