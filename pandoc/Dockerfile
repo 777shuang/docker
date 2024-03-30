@@ -5,17 +5,8 @@ ENV LUA_PATH="/opt/filters/?.lua;;"
 
 RUN apt update && \
     apt upgrade -y && \
-    apt install -y software-properties-common && \
-    add-apt-repository ppa:inkscape.dev/stable && \
     apt update && \
-    apt install -y --no-install-recommends inkscape default-jre-headless graphviz && \
-    apt remove -y software-properties-common && \
-    apt autoremove -y && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN apt update && \
-    apt install -y wget && \
+    apt install -y --no-install-recommends default-jre-headless graphviz wget && \
     wget --no-check-certificate -O ${PLANTUML} http://sourceforge.net/projects/plantuml/files/plantuml.jar/download && \
     apt remove -y wget && \
     apt autoremove -y && \
