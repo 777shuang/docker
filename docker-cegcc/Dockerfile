@@ -7,7 +7,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone --recursive https://github.com/brain-hackers/cegcc-build && \
+RUN git clone --recursive --depth 1 https://github.com/brain-hackers/cegcc-build && \
     cd cegcc-build && \
     mkdir /opt/cegcc && \
     chown "$(whoami):$(whoami)" /opt/cegcc && \
