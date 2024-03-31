@@ -1,7 +1,10 @@
 FROM pandoc/core:latest-ubuntu
 
 ENV PLANTUML=/bin/plantuml.jar
-ENV LUA_PATH="/opt/filters/?.lua;;"
+ENV LUA_FILTER=/opt/filters
+ENV LUA_PATH="${LUA_FILTER}/?.lua;;"
+ENV crossrefYaml=/config/crossref_config.yaml
+COPY crossref_config.yaml ${crossrefYaml}
 
 RUN apt update && \
     apt upgrade -y && \
@@ -31,9 +34,7 @@ RUN apt update && \
 RUN npm install -g mermaid-filter && \
     npm cache clean --force
 
-COPY crossref_config.yaml /config/crossref_config.yaml
-
-ENTRYPOINT [ "pandoc", "-sN", "-L", "/opt/filters/filters.lua", "-F", "mermaid-filter", "-F", "pandoc-crossref", "-M", "crossrefYaml=/config/crossref_config.yaml" ]
+ENTRYPOINT [ "pandoc", "-sN", "-L", "${LUA_FILTER}/filters.lua", "-F", "mermaid-filter", "-F", "pandoc-crossref", "-M", "${crossrefYaml}" ]
 
 VOLUME /workdir
 WORKDIR /workdir
