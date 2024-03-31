@@ -21,7 +21,9 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT [ "pandoc", "-sN", "-L", "/opt/filters/filters.lua", "-F", "pandoc-crossref" ]
+COPY crossref_config.yaml /config/crossref_config.yaml
+
+ENTRYPOINT [ "pandoc", "-sN", "-L", "/opt/filters/filters.lua", "-F", "pandoc-crossref", "-M", "crossrefYaml=/config/crossref_config.yaml" ]
 
 VOLUME /workdir
 WORKDIR /workdir
