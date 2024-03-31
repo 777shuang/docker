@@ -5,11 +5,9 @@ ENV LUA_PATH="/opt/filters/?.lua;;"
 
 RUN apt update && \
     apt upgrade -y && \
-    apt update && \
+    apt autoremove -y && \
     apt install -y --no-install-recommends default-jre-headless graphviz wget && \
     wget --no-check-certificate -O ${PLANTUML} http://sourceforge.net/projects/plantuml/files/plantuml.jar/download && \
-    apt remove -y wget && \
-    apt autoremove -y && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
