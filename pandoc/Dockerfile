@@ -1,4 +1,4 @@
-FROM pandoc/minimal:latest-ubuntu
+FROM pandoc/core:latest-ubuntu
 
 ENV PLANTUML=/bin/plantuml.jar
 ENV LUA_PATH="/opt/filters/?.lua;;"
