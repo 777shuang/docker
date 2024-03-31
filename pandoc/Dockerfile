@@ -26,8 +26,9 @@ RUN apt update && \
     apt purge -y nodejs npm && \
     apt autoremove -y && \
     apt clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    npm install -g mermaid-filter && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g mermaid-filter && \
     npm cache clean --force
 
 COPY crossref_config.yaml /config/crossref_config.yaml
