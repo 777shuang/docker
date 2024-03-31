@@ -21,7 +21,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-CMD pandoc -sN --filter pandoc-crossref --lua-filter filters.lua
+CMD pandoc -sN --lua-filter filters.lua --filter pandoc-crossref
 
 VOLUME /workdir
 WORKDIR /workdir
