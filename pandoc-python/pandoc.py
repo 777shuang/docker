@@ -13,15 +13,17 @@ def build(dir: str):
     extra_args = [
         '-sN',
         '--template', os.path.join(os.environ['TEMPLATES'], 'template.tex'),
-        '-M', os.environ['crossrefYaml']
+        '-M', os.environ['crossrefYaml'],
+        '-L', os.path.join(os.environ['LUA_FILTER'], 'filters.lua'),
+        '-F', 'pandoc-crossref',
+        '-F', 'mermaid-filter'
     ]
 
     meta = pypandoc.convert_text(
         markdown[0],
         'markdown',
         'markdown',
-        extra_args=['--standalone'],
-        filters=[os.path.join(os.environ['LUA_FILTER'], 'deletebody.lua')]
+        extra_args=['--standalone', '-L', os.path.join(os.environ['LUA_FILTER'], 'deletebody.lua')],
     )
 
     matched = re.search(r'---((.|\s)+)---', meta)
@@ -35,7 +37,6 @@ def build(dir: str):
         'latex',
         format='markdown-auto_identifiers',
         outputfile=dir + 'tex',
-        filters=[os.path.join(os.environ['LUA_FILTER'], 'filters.lua'), 'pandoc-crossref', 'mermaid-filter'],
         extra_args=extra_args
     )
 
