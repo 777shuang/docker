@@ -11,4 +11,4 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT python3 -m ${PYTHON_SCRIPT}
+ENTRYPOINT python3 ${PYTHON_SCRIPT}
