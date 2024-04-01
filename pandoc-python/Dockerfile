@@ -7,7 +7,7 @@ COPY deletebody.lua ${LUA_FILTER}/deletebody.lua
 COPY pandoc.py ${PYTHON_SCRIPT}
 
 RUN apt update && \
-    apt install -y --no-install-recommends python3 python3-pypandoc python3-pyyaml && \
+    apt install -y --no-install-recommends python3 python3-pypandoc python3-yaml && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
