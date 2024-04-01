@@ -1,8 +1,8 @@
 import os
 import re
+from subprocess import run
 from glob import glob
 from sys import argv
-import pypandoc
 import yaml
 
 def build(dir: str):
@@ -10,36 +10,30 @@ def build(dir: str):
 
     markdown = sorted(glob('*.md'))
 
-    extra_args = [
-        '-sN',
+    cmd = [
+        'pandoc', '-s',
+        '-L', os.path.join(os.environ['LUA_FILTER'], 'deletebody.lua'),
+        markdown[0],
+        '-t', 'markdown'
+    ]
+    ret = run(cmd, capture_output=True, text=True)
+    cmd = [
+        'pandoc', '-sN',
         '--template', os.path.join(os.environ['TEMPLATES'], 'template.tex'),
         '-M', os.environ['crossrefYaml'],
         '-L', os.path.join(os.environ['LUA_FILTER'], 'filters.lua'),
         '-F', 'pandoc-crossref',
-        '-F', 'mermaid-filter'
+        '-F', 'mermaid-filter',
+        '-o', dir + '.tex'
     ]
-
-    meta = pypandoc.convert_text(
-        markdown[0],
-        'markdown',
-        'markdown',
-        extra_args=['--standalone', '-L', os.path.join(os.environ['LUA_FILTER'], 'deletebody.lua')],
-    )
-
-    matched = re.search(r'---((.|\s)+)---', meta)
+    matched = re.search(r'---((.|\s)+)---', ret.stdout)
     if matched is not None:
-        meta_yaml = yaml.safe_load(matched.groups()[0])
-        if 'top-level-division' in meta_yaml:
-            extra_args += ['--top-level-division', meta_yaml['top-level-division']]
+        meta = yaml.safe_load(matched.groups()[0])
+        if 'top-level-division' in meta:
+            cmd += ['--top-level-division', meta['top-level-division']]
 
-    pypandoc.convert_file(
-        markdown,
-        'latex',
-        format='markdown-auto_identifiers',
-        outputfile=dir + 'tex',
-        extra_args=extra_args
-    )
-
+    cmd += markdown
+    run(cmd)
     os.chdir('..')
 
 if __name__ == "__main__":
