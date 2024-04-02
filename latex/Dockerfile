@@ -15,4 +15,4 @@ RUN apk --no-cache add perl curl && \
     rm -rf install-tl-2* && \
     apk del curl
 
-COPY .latexmkrc ${HOME}/.latexmkrc
+COPY .latexmkrc /root/.latexmkrc
