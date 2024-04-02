@@ -13,16 +13,3 @@ $max_repeat   = 5;
 $pdf_mode     = 4;
 
 $pvc_view_file_via_temporary = 0;
-
-# default preview
-given ($^O) {
-    when (/MSWin32/) {
-        $pdf_previewer = 'start';
-    }
-    when (/darwin/) {
-        $pdf_previewer = 'open';
-    }
-    default {
-        $pdf_previewer = 'evince';
-    }
-}
