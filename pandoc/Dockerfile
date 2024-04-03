@@ -16,7 +16,7 @@ RUN apt update && \
 
 RUN apt update && \
     apt install -y git && \
-    git clone --recursive --depth 1 https://github.com/777shuang/pandoc-filters /opt/filters && \
+    git clone --recursive --depth 1 https://github.com/777shuang/pandoc-filters ${LUA_FILTER} && \
     apt remove -y git && \
     apt autoremove -y && \
     apt clean && \
