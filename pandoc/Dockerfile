@@ -34,7 +34,7 @@ RUN apt update && \
 RUN npm install -g mermaid-filter && \
     npm cache clean --force
 
-ENTRYPOINT [ "pandoc", "-sN", "-L", "${LUA_FILTER}/filters.lua", "-F", "mermaid-filter", "-F", "pandoc-crossref", "-M", "${crossrefYaml}" ]
+ENTRYPOINT [ "sh", "-c", "pandoc", "-sN", "-L", "${LUA_FILTER}/filters.lua", "-F", "mermaid-filter", "-F", "pandoc-crossref", "-M", "${crossrefYaml}" ]
 
 VOLUME /workdir
 WORKDIR /workdir
