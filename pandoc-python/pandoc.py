@@ -24,6 +24,7 @@ def build(dir: str):
         '-L', os.path.join(os.environ['LUA_FILTER'], 'filters.lua'),
         '-F', 'pandoc-crossref',
         '-F', 'mermaid-filter',
+        '--extract-media', os.chdir(),
         '-o', dir + '.tex'
     ]
     matched = re.search(r'---((.|\s)+)---', ret.stdout)
