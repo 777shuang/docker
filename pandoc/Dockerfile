@@ -9,7 +9,7 @@ COPY crossref_config.yaml ${crossrefYaml}
 RUN apt update && \
     apt upgrade -y && \
     apt autoremove -y && \
-    apt install -y --no-install-recommends default-jre-headless graphviz wget && \
+    apt install -y --no-install-recommends default-jre-headless graphviz wget fonts-noto-cjk fonts-noto fonts-noto-cjk-extra && \
     wget --no-check-certificate -O ${PLANTUML} http://sourceforge.net/projects/plantuml/files/plantuml.jar/download && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
