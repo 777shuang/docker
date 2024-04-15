@@ -371,6 +371,9 @@ $endfor$
 \def\languageshorthands#1{}
 $endif$
 \usepackage{tcolorbox}
+\tcbuselibrary{xparse}
+\tcbuselibrary{skins}
+\tcbuselibrary{breakable}
 $for(usepackage)$
 \usepackage{$usepackage$}
 $endfor$
