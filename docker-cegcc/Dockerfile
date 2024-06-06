@@ -7,15 +7,10 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone --recursive --depth 1 https://github.com/brain-hackers/cegcc-build && \
+RUN git clone --depth 1 --recursive --shallow-submodules https://github.com/enlyze/cegcc-build && \
     cd cegcc-build && \
-    mkdir /opt/cegcc && \
-    chown "$(whoami):$(whoami)" /opt/cegcc && \
-    mkdir /tmp/cegcc-output && \
-    cd /tmp/cegcc-output && \
-    "$OLDPWD/build.sh" -j$(nproc) --prefix=/opt/cegcc && \
-    rm -rf /tmp/cegcc-output && \
-    rm -rf $OLDPWD
+    ./build_cf.sh /opt/cegcc arm-mingw32ce && \
+    cd .. && rm -rf cegcc-build
 
 ENV PATH="/opt/cegcc/bin:${PATH}"
 
